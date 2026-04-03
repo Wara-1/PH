@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ตรวจสอบค่าความเป็นกรด-ด่าง (pH)</title>
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #f0f8ff;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #2a6f97;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 1em;
+      width: 100%;
+      margin: 10px 0;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1em;
+      background-color: #e0f7fa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ตรวจสอบค่าพีเอชของน้ำ</h1>
+  
+  <label for="phValue">กรอกค่าพีเอช (pH):</label>
+  <input type="number" id="phValue" step="0.1" min="0" placeholder="เช่น 7.5">
+  
+  <button onclick="checkPH()">ตรวจสอบ</button>
+
+  <div id="result"></div>
+
+  <script>
+    function checkPH() {
+      const ph = parseFloat(document.getElementById("phValue").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(ph)) {
+        result.textContent = "กรุณากรอกค่าที่เป็นตัวเลข";
+        result.style.backgroundColor = "#ffcdd2";
+        return;
+      }
+
+      if (ph <= 4.0) {
+        result.textContent = "pH ≤ 4.0: ค่าพีเอชอันตราย อาจทำให้ปลาตายได้";
+        result.style.backgroundColor = "#f44336"; // แดง
+      } else if (ph > 4.0 && ph <= 6.0) {
+        result.textContent = "pH 4.0 – 6.0: อาจทำให้ผลผลิตต่ำ การเจริญเติบโตช้า การสืบพันธุ์หยุดชะงัก";
+        result.style.backgroundColor = "#ff9800"; // ส้ม
+      } else if (ph > 6.0 && ph <= 9.0) {
+        result.textContent = "pH >6 – 9.0: เหมาะสมต่อการเพาะเลี้ยงสัตว์น้ำ";
+        result.style.backgroundColor = "#c8e6c9"; // เขียว
+      } else if (ph > 9.0 && ph <= 11.0) {
+        result.textContent = "pH >9.0 – 11.0: ไม่เหมาะสมกับการดำรงชีวิตของสัตว์น้ำ หากอยู่เป็นเวลานาน";
+        result.style.backgroundColor = "#ffcc80"; // เหลืองเข้ม
+      } else if (ph > 11.0) {
+        result.textContent = "pH > 11.0: เป็นพิษต่อปลา คุณภาพน้ำไม่ดี";
+        result.style.backgroundColor = "#e57373"; // แดงอ่อน
+      } else {
+        result.textContent = "ค่าพีเอชอยู่นอกช่วงที่ตรวจสอบ";
+        result.style.backgroundColor = "#eeeeee";
+      }
+    }
+  </script>
+
+</body>
+</html>
